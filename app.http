@@ -1,0 +1,30 @@
+###
+GET http://localhost:3000/posts/
+
+###
+POST http://localhost:3000/posts/
+Content-Type: application/json 
+
+{
+  'title': 'Ravis Adventure',
+  "description": "Ravi explores the vibrant culture of Chennai.",
+  "userId": 2,
+  "images": "girish1.jpg,girish2.jpg"
+}
+###
+PUT http://localhost:3000/posts/
+Content-Type: application/json 
+
+{
+  'title': 'Ravis Adventure',
+  "description": "Ravi explores the vibrant culture of Chennai.",
+  "userId": 3,
+  "images": "girish1.jpg,girish2.jpg"
+}
+
+###
+DELETE http://localhost:3000/posts/3
+
+###
+
+GET http://localhost:3000/users/2
