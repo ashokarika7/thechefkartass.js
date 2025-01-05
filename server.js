@@ -3,11 +3,11 @@
     const { open } = require("sqlite");
     const sqlite3 = require("sqlite3");
     const app = express();
-    const bcrypt= require('bcrypt')
-    const jwt= require('jsonwebtoken')
-    app.use(express.json());
 
-    const dbPath = path.join(__dirname, "insta.db");
+    app.use(express.json());
+    
+    const dbPath = process.env.NODE_ENV === "test" ? path.join(__dirname, "insta.test.db") : path.join(__dirname, "insta.db");
+
 
     let db = null;
 
@@ -17,9 +17,7 @@
         filename: dbPath,
         driver: sqlite3.Database,
         });
-        app.listen(3000, () => {
-        console.log("Server Running at http://localhost:3000/");
-        });
+        
     } catch (e) {
         console.log(`DB Error: ${e.message}`);
         process.exit(1);
@@ -27,6 +25,8 @@
     };
 
     initializeDBAndServer();
+
+
 
     //GET POSTS API
 
@@ -110,3 +110,12 @@
         
         response.send(postsResponse)
     })
+
+    if (process.env.NODE_ENV !== "test") {
+        // Only start the server in non-test environments
+        app.listen(3000, () => {
+            console.log("Server Running at http://localhost:3000/");
+        });
+    }
+
+    module.exports = app;
